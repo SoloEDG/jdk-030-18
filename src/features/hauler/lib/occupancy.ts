@@ -1,10 +1,14 @@
 import { sameCell } from "@/shared/document";
+import { topmostBoxAt } from "@/features/rug/lib/geometry";
 import type { Box, GameDocument, Vec } from "@/shared/types";
 
 export type Occupant = "player" | "box" | null;
 
+/** 只返回格上真正外露、可以被搬运员碰到的箱子。 */
 export function boxAt(document: GameDocument, at: Vec, ignoreId?: string): Box | undefined {
-  return document.level.boxes.find((box) => sameCell(box, at) && box.id !== ignoreId);
+  const box = topmostBoxAt(document, at.x, at.y);
+  if (!box || box.id === ignoreId) return undefined;
+  return box;
 }
 
 export function occupantAt(document: GameDocument, at: Vec, ignoreBoxId?: string): Occupant {

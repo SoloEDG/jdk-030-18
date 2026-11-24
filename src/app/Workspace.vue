@@ -4,6 +4,7 @@ import { StageView, TileLegend } from "@/features/atlas";
 import { GadgetPanel } from "@/features/gadget";
 import { MoverHud } from "@/features/hauler";
 import { StepMeter } from "@/features/ledger";
+import { RugPanel } from "@/features/rug";
 import { LevelRail, RecordBoard } from "@/features/voyage";
 import { dirFromKey, shouldCapture } from "./keys";
 import { useWorkshop } from "./useWorkshop";
@@ -57,6 +58,7 @@ onUnmounted(() => window.removeEventListener("keydown", onKey));
       <aside class="side">
         <StepMeter :steps="steps" :status="status" :coverage="coverage" />
         <GadgetPanel :document="document" :summary="summary" />
+        <RugPanel :document="document" />
         <TileLegend />
       </aside>
     </div>

@@ -6,6 +6,8 @@ const items = [
   { name: "缺口", swatch: "#0b0907" },
   { name: "门闩", swatch: "#c9a36a" },
   { name: "架桥", swatch: "#6a5638" },
+  { name: "卷毯", swatch: "#7a3b46" },
+  { name: "卷束", swatch: "#5e2c35" },
 ];
 </script>
 

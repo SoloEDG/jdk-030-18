@@ -28,11 +28,24 @@ export function useWorkshop() {
     if (!result.moved) {
       if (result.reason === "cleared") {
         notify({ tone: "warn", message: "本关已通关。重置或另选关卡后再推。" });
+      } else if (result.reason === "rug-jammed") {
+        notify({
+          tone: "warn",
+          message: "卷到这一排被另一卷的上层夹货卡住了：整次停在最先受阻的排，已卷起的部分保留。",
+        });
+      } else if (result.reason === "rug-blocked") {
+        notify({ tone: "warn", message: "这一头没有可卷的排，或目标格被占住，卷毯没有动。" });
       }
       return;
     }
     gadget.refresh();
     const tick = ledger.afterMove(result);
+    if (result.rugId) {
+      notify({
+        tone: "info",
+        message: `卷毯${result.rugRows ?? 0} 排：卷入的格、货与踏板暂时不外露，反铺后按新层序落下。`,
+      });
+    }
     if (tick.cleared) {
       voyage.commitClear();
       notify({
